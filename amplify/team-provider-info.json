@@ -10,6 +10,12 @@
       "StackName": "amplify-mealorder-dev-212739",
       "StackId": "arn:aws:cloudformation:us-east-1:259421441156:stack/amplify-mealorder-dev-212739/f75b56f0-be21-11ed-91e6-120224c01b63",
       "AmplifyAppId": "d2fzog80bg85px"
+    },
+    "categories": {
+      "auth": {
+        "mealorderc4fef4ba": {},
+        "userPoolGroups": {}
+      }
     }
   }
 }
