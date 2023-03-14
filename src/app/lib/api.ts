@@ -6,7 +6,7 @@ import axios from "axios";
  * @return {*} 
  */
 export const getAllMenuItems = async () => {
-    const URL = 'http://localhost:3000/api/menu'
+    const URL = '/api/menu'
     try {
         const response = await axios.get(URL);
         return response.data;
