@@ -1,11 +1,6 @@
 import { Client } from 'cassandra-driver';
 
-/**
- * Get all menu items
- *
- * @return {[items]}
- */
-const GetAllMenuItems = async () => {
+const GetAvailableItems = async () => {
   const client = new Client({
     cloud: {
       secureConnectBundle: './src/app/api/secure-connect-mealorder.zip',
@@ -18,16 +13,18 @@ const GetAllMenuItems = async () => {
 
   await client.connect();
 
-  // Execute a query
-  const rs = await client.execute('SELECT * FROM mealorder.item');
-  // Close connection
-  await client.shutdown();
-  // Return results
+  // Execute query
+  const rs = await client.execute(
+    "SELECT * FROM mealorder.item WHERE status='active'"
+  );
+  //Close connection
+  client.shutdown();
+  //Return results
   return JSON.stringify(rs.rows);
 };
 
 export async function GET(request: Request) {
-  // Run the async function
-  const rs: any = await GetAllMenuItems();
+  // Run the async function to get data
+  const rs: any = await GetAvailableItems();
   return new Response(rs);
 }

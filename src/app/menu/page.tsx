@@ -1,9 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { getAllMenuItems } from '../lib/api';
-import MenuItem from './MenuItem';
+import LoadingModal from '../LoadingModal';
+import MenuItem from '../MenuItem';
 
-export default function Dashboard() {
+export default function Menu() {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
@@ -15,14 +16,17 @@ export default function Dashboard() {
     });
   }, []);
 
-  if (isLoading) return <>loading...</>;
+  if (isLoading) return <LoadingModal message='Loading menu...' />;
   if (!data) return <>Menu not available</>;
 
   return (
     <>
-      <h1 className='text-red-500 text-3xl'>Menu</h1>
       {data.map((item: any) => (
-        <MenuItem key={item.id} title={item.title} details={item.details} />
+        <MenuItem
+          key={item.item_id}
+          name={item.name}
+          description={item.description}
+        />
       ))}
     </>
   );

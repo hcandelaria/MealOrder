@@ -1,7 +1,22 @@
-export default function Dashboard() {
+'use client';
+import { useItem } from '../Context/ItemContext';
+import AvailableDates from './AvailableDates';
+import AvailableItems from './AvailableItems';
+
+export default function Order() {
+  const { serviceDate } = useItem();
+
   return (
     <>
-      <h1 className='text-red-500 text-3xl'>Order</h1>
+      {serviceDate === '' ? (
+        <AvailableDates />
+      ) : (
+        <>
+          {serviceDate}
+          <br />
+          <AvailableItems />
+        </>
+      )}
     </>
   );
 }
