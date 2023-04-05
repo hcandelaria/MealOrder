@@ -10,6 +10,10 @@ import MessageModal from '../MessageModal';
 export default function ShoppingCart() {
   const { items, clearItems } = useShoppingCart();
   const { serviceDate } = useItem();
+  const [tone, setTone] = useState<'neutral' | 'successful' | 'fail'>(
+    'neutral'
+  );
+  const [message, setMessage] = useState('');
   const [modal, setModal] = useState(false);
   const [cartTotal, setCartTotal] = useState(0);
   const [isLoading, setLoading] = useState(false);
@@ -35,8 +39,8 @@ export default function ShoppingCart() {
       {isLoading && <LoadingModal />}
       {modal && (
         <MessageModal
-          tone='successful'
-          message='Order Submitted Successfuly! We will call you to confirm order.'
+          tone={tone}
+          message={message}
           toggleFunction={toggleModal}
         />
       )}
@@ -138,7 +142,8 @@ export default function ShoppingCart() {
                 <div className='md:w-2/3'>
                   <button
                     className='bg-black uppercase text-white font-bold rounded-full px-2 mx-2 my-1 col-span-2'
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
                       setLoading(true);
                       const payload = {
                         customer_name: 'John Smith',
@@ -148,9 +153,20 @@ export default function ShoppingCart() {
                         comments: 'Test',
                       };
                       SubmitOrder(payload).then((res: any) => {
+                        if (res) {
+                          setTone('successful');
+                          setMessage(
+                            'Order Submitted Successfuly! We will call you to confirm order.'
+                          );
+                          clearItems();
+                        } else {
+                          setTone('fail');
+                          setMessage(
+                            'Ops... We are having technical difficulties. Please contact the store directly.'
+                          );
+                        }
                         setLoading(false);
                         toggleModal();
-                        clearItems();
                       });
                     }}
                   >
