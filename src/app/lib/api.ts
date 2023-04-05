@@ -16,22 +16,6 @@ export const getAllMenuItems = async () => {
 };
 
 /**
- * Get all stocks items
- *
- * @return {*}
- */
-export const getAllShoppingCart = async () => {
-  const res = await fetch('/api/shoppingcart/', { next: { revalidate: 10 } });
-
-  if (!res.ok) {
-    console.log(`Error ${res.status} fetching data`);
-    return null;
-  }
-
-  return res.json();
-};
-
-/**
  * Get active service dates
  *
  * @return {*}

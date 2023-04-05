@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { getAllMenuItems } from '../lib/api';
 import LoadingModal from '../LoadingModal';
 import MenuItem from '../MenuItem';
+import { getAllMenuItems } from '../lib/api';
 
 export default function Menu() {
   const [data, setData] = useState([]);
@@ -10,7 +10,7 @@ export default function Menu() {
 
   useEffect(() => {
     setLoading(true);
-    getAllMenuItems().then((data) => {
+    getAllMenuItems().then((data: any) => {
       setData(data);
       setLoading(false);
     });

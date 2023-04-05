@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useShoppingCart } from './Context/ShoppingCartContext';
+import { Item } from './interface';
 
 export default function MenuItem({
   name,
@@ -10,7 +11,7 @@ export default function MenuItem({
   description: string;
 }) {
   const { addItem } = useShoppingCart();
-  const [item] = useState({
+  const [item] = useState<Item>({
     name: name,
     description: description,
     status: 'active',

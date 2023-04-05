@@ -1,29 +1,7 @@
 'use client';
 import React, { createContext, useState } from 'react';
+import { Item, ItemType } from '../interface';
 import { calculateRecurrence } from '../lib/dates';
-
-interface Item {
-  item_id: string;
-  name: string;
-  description: string;
-  status: string;
-  price: number;
-  thumbnail_url: string;
-  size: string;
-  spicy_level: string;
-  available_date: string;
-  recurrence: string;
-}
-
-interface ItemType {
-  items: Item[];
-  serviceDate: string;
-  addItem: (item: Item) => void;
-  addItems: (item: [Item]) => void;
-  removeItem: (item: string) => void;
-  filterItems: (serviceDate: string) => void;
-  setServiceDate: (serviceDate: string) => void;
-}
 
 export const ItemContext = createContext<ItemType>({
   items: [],
@@ -49,18 +27,20 @@ export const ItemProvider: React.FC<{ children: React.ReactNode }> = ({
   const addItems = (item: [Item]) => {
     setItems([...items, ...item]);
   };
-  const removeItem = (item_id: string) => {
-    setItems(items.filter((item) => item.item_id !== item_id));
+  const removeItem = (index: number) => {
+    setItems(items.filter((item, i) => i !== index));
   };
 
   const filterItems = (serviceDate: string) => {
     setItems(
       items.filter((item) => {
-        let tempDates = calculateRecurrence(
-          item.available_date,
-          item.recurrence
-        );
-        return tempDates.has(serviceDate);
+        if (item.available_date && item.recurrence) {
+          let tempDates = calculateRecurrence(
+            item.available_date,
+            item.recurrence
+          );
+          return tempDates.has(serviceDate);
+        }
       })
     );
   };
