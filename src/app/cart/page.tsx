@@ -1,11 +1,11 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CartItem from '../CartItem';
 import { useItem } from '../Context/ItemContext';
 import { useShoppingCart } from '../Context/ShoppingCartContext';
-import { SubmitOrder } from '../lib/api';
 import LoadingModal from '../LoadingModal';
 import MessageModal from '../MessageModal';
+import { SubmitOrder } from '../lib/api';
 
 export default function ShoppingCart() {
   const { items, clearItems } = useShoppingCart();
@@ -15,24 +15,11 @@ export default function ShoppingCart() {
   );
   const [message, setMessage] = useState('');
   const [modal, setModal] = useState(false);
-  const [cartTotal, setCartTotal] = useState(0);
   const [isLoading, setLoading] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
   };
-
-  const updateCartTotal = () => {
-    let total = 0;
-    items.forEach((item) => {
-      total += item.price;
-    });
-    setCartTotal(total);
-  };
-
-  useEffect(() => {
-    updateCartTotal();
-  }, []);
 
   return (
     <>

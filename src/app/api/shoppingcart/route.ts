@@ -79,8 +79,8 @@ export async function POST(request: Request) {
  * @param {Request} request
  * @return {*}
  */
-// export async function GET(request: Request) {
-//   // Run the async function
-//   const rs: any = await GetAllOrders();
-//   return new Response(rs);
-// }
+export async function GET(request: Request) {
+  // Run the async function
+  const rs: any = await GetAllOrders();
+  return new Response(rs);
+}

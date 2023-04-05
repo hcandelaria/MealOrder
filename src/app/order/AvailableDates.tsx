@@ -1,16 +1,16 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useItem } from '../Context/ItemContext';
+import LoadingModal from '../LoadingModal';
 import { getAllMenuItems } from '../lib/api';
 import { calculateRecurrence } from '../lib/dates';
-import LoadingModal from '../LoadingModal';
 
 export default function AvailableDates() {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [dates, setDates] = useState([]);
   const { setServiceDate } = useItem();
-  const { addItems, items } = useItem();
+  const { addItems } = useItem();
 
   useEffect(() => {
     setLoading(true);
