@@ -38,7 +38,7 @@ export const getActiveServiceDates = async () => {
  * @return {*}
  */
 export const SubmitOrder = async (payload: any) => {
-  const res = await fetch('/api/shoppingcart', {
+  const res = await fetch('/api/shoppingcart/submit', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
