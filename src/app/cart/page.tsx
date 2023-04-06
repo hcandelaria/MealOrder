@@ -1,11 +1,12 @@
 'use client';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import CartItem from '../CartItem';
 import { useItem } from '../Context/ItemContext';
 import { useShoppingCart } from '../Context/ShoppingCartContext';
+import { SubmitOrder } from '../lib/api';
 import LoadingModal from '../LoadingModal';
 import MessageModal from '../MessageModal';
-import { SubmitOrder } from '../lib/api';
 
 export default function ShoppingCart() {
   const { items, clearItems } = useShoppingCart();
@@ -133,6 +134,7 @@ export default function ShoppingCart() {
                       e.preventDefault();
                       setLoading(true);
                       const payload = {
+                        shopping_cart_id: uuidv4(),
                         customer_name: 'John Smith',
                         customer_phone: '1234567890',
                         items: items,

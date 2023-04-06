@@ -1,5 +1,4 @@
 import { Client } from 'cassandra-driver';
-import { v4 as uuidv4 } from 'uuid';
 
 /**
  *
@@ -20,7 +19,6 @@ const CreateOrder = async (payload: any) => {
 
   await client.connect();
 
-  payload['shopping_cart_id'] = uuidv4();
   // Execute a query
   const rs = await client.execute(
     `INSERT INTO mealorder.shopping_cart JSON '${JSON.stringify(payload)}'`
