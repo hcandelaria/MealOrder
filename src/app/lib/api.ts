@@ -8,7 +8,7 @@ export const getAllMenuItems = async () => {
   // Recommendation: handle errors
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    console.log(`Error ${res.status} post data`);
+    console.log(`Error ${res.status} fetching data`);
     return null;
   }
 
@@ -42,12 +42,12 @@ export const SubmitOrder = async (payload: any) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify(payload),
   });
-  console.log(res);
   if (!res.ok) {
-    console.log(`Error ${res.status} creating data`);
+    console.log(`Error ${res.status} fetching data`);
     return null;
   }
 

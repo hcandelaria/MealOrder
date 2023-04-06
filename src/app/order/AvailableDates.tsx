@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useItem } from '../Context/ItemContext';
-import LoadingModal from '../LoadingModal';
 import { getAllMenuItems } from '../lib/api';
 import { calculateRecurrence } from '../lib/dates';
+import LoadingModal from '../LoadingModal';
 
 export default function AvailableDates() {
   const [data, setData] = useState([]);
@@ -35,7 +35,7 @@ export default function AvailableDates() {
     });
   }, []);
 
-  if (isLoading) return <LoadingModal message='PLease wait...' />;
+  if (isLoading) return <LoadingModal message='Please wait...' />;
   if (!data) return <>Not available dates to order. Please try again later.</>;
 
   return (
