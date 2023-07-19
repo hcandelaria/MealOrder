@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^4.3.10",
+    "@aws-sdk/client-dynamodb": "^3.370.0",
     "@aws-sdk/util-dynamodb": "^3.365.0",
     "@heroicons/react": "^2.0.17",
     "@types/node": "18.14.6",
