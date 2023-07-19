@@ -24,6 +24,17 @@
       },
       "api": {
         "api42492b23": {}
+      },
+      "storage": {
+        "MealOrders": {
+          "tableName": "MealOrders",
+          "region": "us-east-1",
+          "arn": "arn:aws:dynamodb:us-east-1:259421441156:table/MealOrders",
+          "partitionKeyName": "PK",
+          "partitionKeyType": "S",
+          "sortKeyName": "SK",
+          "sortKeyType": "S"
+        }
       }
     }
   }

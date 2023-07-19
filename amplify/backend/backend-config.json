@@ -80,6 +80,70 @@
           "resourceName": "mealordera8873524"
         }
       ]
+    },
+    "AMPLIFY_storage_MealOrders_arn": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "MealOrders"
+        }
+      ]
+    },
+    "AMPLIFY_storage_MealOrders_partitionKeyName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "MealOrders"
+        }
+      ]
+    },
+    "AMPLIFY_storage_MealOrders_partitionKeyType": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "MealOrders"
+        }
+      ]
+    },
+    "AMPLIFY_storage_MealOrders_region": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "MealOrders"
+        }
+      ]
+    },
+    "AMPLIFY_storage_MealOrders_sortKeyName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "MealOrders"
+        }
+      ]
+    },
+    "AMPLIFY_storage_MealOrders_sortKeyType": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "MealOrders"
+        }
+      ]
+    },
+    "AMPLIFY_storage_MealOrders_tableName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "MealOrders"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "MealOrders": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB",
+      "serviceType": "imported"
     }
   }
 }
