@@ -3,7 +3,13 @@ import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { useShoppingCart } from './Context/ShoppingCartContext';
 import { Item } from './interface';
 
-export default function MenuItem({ item }: { item: Item; addToCart: boolean }) {
+export default function MenuItem({
+  item,
+  addToCart,
+}: {
+  item: Item;
+  addToCart: boolean;
+}) {
   const { addItem } = useShoppingCart();
   const [spicy, setSpicy] = useState(
     item.Data.Spicy_Level.entries().next().value[0]

@@ -1,4 +1,5 @@
 'use client';
+import { unmarshall } from '@aws-sdk/util-dynamodb';
 import { useEffect, useState } from 'react';
 import { getAllMenuItems } from '../lib/api';
 import LoadingModal from '../LoadingModal';
@@ -10,10 +11,13 @@ export default function Menu() {
 
   useEffect(() => {
     setLoading(true);
-    getAllMenuItems().then((data: any) => {
+    getAllMenuItems().then((rawData: any) => {
+      if (!rawData) return;
+      const data = rawData.map((i: any) => {
+        return unmarshall(i);
+      });
       setData(data);
       setLoading(false);
-      console.log(data);
     });
   }, []);
 
@@ -24,7 +28,11 @@ export default function Menu() {
     <>
       <section className='grid grid-cols-12'>
         {data.map((item: any) => (
-          <MenuItem key={item.item_id} item={item} addToCart={true} />
+          <MenuItem
+            key={item.PK + '#' + item.SD}
+            item={item}
+            addToCart={true}
+          />
         ))}
       </section>
     </>
