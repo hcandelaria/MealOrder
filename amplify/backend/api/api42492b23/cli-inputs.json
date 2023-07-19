@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/shoppingcart/submit": {
+      "name": "/shoppingcart/submit",
+      "lambdaFunction": "mealordera8873524",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

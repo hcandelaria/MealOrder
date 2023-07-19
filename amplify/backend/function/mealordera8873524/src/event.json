@@ -1,0 +1,18 @@
+{
+  "shopping_cart_id": "ade6a116-7661-422f-bb2b-5a2d6f40e8e4",
+  "customer_name": "John Smith",
+  "customer_phone": "1234567890",
+  "items": [
+    {
+      "name": "BBQ Pork Chop",
+      "description": "BBQ seasoned pork chop smoked.",
+      "status": "active",
+      "price": 9.99,
+      "thumbnail_url": "",
+      "size": "large",
+      "spicy_level": "hot"
+    }
+  ],
+  "service_date": "4/8/2023",
+  "comments": "Test"
+}

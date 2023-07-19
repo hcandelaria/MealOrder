@@ -23,7 +23,7 @@ CREATE TABLE item (
 --item.name item.price item.thumbnail_url item.size item.spice_level item.calories
 --pending, reviewed, verified, rejected
 CREATE TABLE shopping_cart(
-	shopping_cart_id uuid PRIMARY KEY,
+	shopping_cart_id uuid,
 	service_date text,
 	items frozen<list<item_type>>, 
 	customer_name text,
@@ -31,28 +31,45 @@ CREATE TABLE shopping_cart(
 	status text, 
 	comments text,
 	created_date timestamp,
-	modified_date timestamp
-);
+	modified_date timestamp,
+	PRIMARY KEY (shopping_cart_id,service_date)
+)
+WITH CLUSTERING ORDER BY (service_date ASC);
 
 -- customer table
 CREATE TABLE customer (
-    customer_id uuid PRIMARY KEY,
-    first_name text,
-    last_name text,
-    email text
+  customer_id uuid PRIMARY KEY,
+  first_name text,
+  last_name text,
+  email text
 );
 
 -- review table
 CREATE TABLE review (
-    review_id uuid PRIMARY KEY,
-    customer_id uuid,
-    menu_id uuid,
-    rating int,
-    comment text,
-    review_date timestamp
+	review_id uuid PRIMARY KEY,
+  customer_id uuid,
+  menu_id uuid,
+  rating int,
+  comment text,
+  review_date timestamp
 ) WITH CLUSTERING ORDER BY (menu_id ASC);
 
-CREATE TYPE item_type (	name text,description text,status text,price decimal,thumbnail_url text,calories int,size text,spicy_level text,available_date timestamp,recurrence text,open_hour time,close_hour time,total_quantity int,current_quantity int);
+CREATE TYPE item_type (	
+	name text,
+	description text,
+	status text,
+	price decimal,
+	thumbnail_url text,
+	calories int,
+	size text,
+	spicy_level text,
+	available_date timestamp,
+	recurrence text,
+	open_hour time,
+	close_hour time,
+	total_quantity int,
+	current_quantity int
+);
 
 -- service_date table
 -- stock set<uuid>
@@ -75,6 +92,12 @@ CREATE TYPE item_type (	name text,description text,status text,price decimal,thu
 INSERT INTO item ( item_id,name,description,status,price, thumbnail_url,calories,size,spicy_level,available_date,recurrence,open_hour,close_hour,total_quantity,current_quantity,created_date,modified_date)
 VALUES ( now(),'BBQ Chicken','BBQ seasoned chicken smoked.','active',9.99,
 'https://www.farmwifecooks.com/wp-content/uploads/2017/02/BBQChicken-1.jpg',400,
+{0:'Small',1:'Large'},{0:'Mild',1:'Medium',2:'Hot'},'2023-01-07 EDT','weekly',
+'11:00:00','19:00:00',10,10,toTimestamp(now()),toTimestamp(now()));
+
+INSERT INTO item ( item_id,name,description,status,price, thumbnail_url,calories,size,spicy_level,available_date,recurrence,open_hour,close_hour,total_quantity,current_quantity,created_date,modified_date)
+VALUES ( now(),'BBQ Ribs','Super tender BBQ Ribs.','active',9.99,
+'https://cdn.pixabay.com/photo/2017/03/07/08/55/bbq-2123434_960_720.jpg',400,
 {0:'Small',1:'Large'},{0:'Mild',1:'Medium',2:'Hot'},'2023-01-07 EDT','weekly',
 '11:00:00','19:00:00',10,10,toTimestamp(now()),toTimestamp(now()));
 

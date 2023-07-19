@@ -5,7 +5,7 @@ import { calculateRecurrence } from '../lib/dates';
 
 export const ItemContext = createContext<ItemType>({
   items: [],
-  serviceDate: '',
+  service_date: '',
   addItem: () => {},
   addItems: () => {},
   removeItem: () => {},
@@ -19,7 +19,7 @@ export const ItemProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [items, setItems] = useState<Item[]>([]);
-  const [serviceDate, updateServiceDate] = useState('');
+  const [service_date, updateServiceDate] = useState('');
 
   const addItem = (item: Item) => {
     setItems([...items, item]);
@@ -34,10 +34,10 @@ export const ItemProvider: React.FC<{ children: React.ReactNode }> = ({
   const filterItems = (serviceDate: string) => {
     setItems(
       items.filter((item) => {
-        if (item.available_date && item.recurrence) {
+        if (item.Data.Available_Date && item.Data.Recurrence) {
           let tempDates = calculateRecurrence(
-            item.available_date,
-            item.recurrence
+            item.Data.Available_Date,
+            item.Data.Recurrence
           );
           return tempDates.has(serviceDate);
         }
@@ -51,7 +51,7 @@ export const ItemProvider: React.FC<{ children: React.ReactNode }> = ({
   };
   const Items: ItemType = {
     items,
-    serviceDate,
+    service_date,
     addItem,
     addItems,
     removeItem,

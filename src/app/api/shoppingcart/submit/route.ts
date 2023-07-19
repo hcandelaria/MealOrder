@@ -1,4 +1,6 @@
-import { Client } from 'cassandra-driver';
+import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
+
+const client = new DynamoDBClient({ region: 'us-east-1' });
 /**
  *
  *
@@ -6,27 +8,16 @@ import { Client } from 'cassandra-driver';
  * @return {*}
  */
 const CreateOrder = async (payload: any) => {
-  const client = new Client({
-    cloud: {
-      secureConnectBundle: './src/app/api/secure-connect-mealorder.zip',
-    },
-    credentials: {
-      username: `${process.env.CLIENT_ID}`,
-      password: `${process.env.CLIENT_SECRET}`,
-    },
-  });
+  // Adds payload to MealOrders
+  const input = {
+    TableName: 'MealOrders',
+    Item: payload,
+  };
 
-  await client.connect();
+  const command = new PutItemCommand(input);
 
-  // Execute a query
-  const rs = await client.execute(
-    `INSERT INTO mealorder.shopping_cart JSON '${JSON.stringify(payload)}'`
-  );
-
-  // Close connection
-  await client.shutdown();
-  // Return results
-  return JSON.stringify(rs);
+  const response = await client.send(command);
+  return JSON.stringify(response);
 };
 
 /**
@@ -38,6 +29,7 @@ const CreateOrder = async (payload: any) => {
  */
 export async function POST(request: Request) {
   const payload = await request.json();
+
   // Run the async function
   const rs: any = await CreateOrder(payload);
   return new Response(rs);

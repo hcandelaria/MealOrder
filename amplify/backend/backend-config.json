@@ -1,4 +1,20 @@
 {
+  "api": {
+    "api42492b23": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "mealordera8873524"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
   "auth": {
     "mealorderc4fef4ba": {
       "customAuth": false,
@@ -39,6 +55,31 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Cognito-UserPool-Groups"
+    }
+  },
+  "function": {
+    "mealordera8873524": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_mealordera8873524_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mealordera8873524"
+        }
+      ]
+    },
+    "AMPLIFY_function_mealordera8873524_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "mealordera8873524"
+        }
+      ]
     }
   }
 }

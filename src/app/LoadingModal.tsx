@@ -1,8 +1,12 @@
-export default function LoadingModal({ message }: { message?: string }) {
+export default function LoadingModal({
+  message = 'Loading',
+}: {
+  message?: string;
+}) {
   return (
     <>
       <div className='overflow-x-hidden overflow-y-auto fixed top-0 left-0 right-0 inset-0 z-50 justify-center items-center'>
-        <div className='relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white'>
+        <div className='relative top-20 mx-auto p-5 border w-80 shadow-lg rounded-md bg-white dark:bg-gray-900 dark:border-gray-800'>
           <div className='mt-3 text-center'>
             <div className='mx-auto flex items-center justify-center h-12 w-12 '>
               <span className='flex items-center rounded-lg  px-4 py-2 text-red-500'>
@@ -28,7 +32,7 @@ export default function LoadingModal({ message }: { message?: string }) {
                 </svg>
               </span>
             </div>
-            <p className='text-sm text-gray-500'>{message}</p>
+            <p className='text-sm text-black dark:text-white'>{message}</p>
           </div>
         </div>
       </div>

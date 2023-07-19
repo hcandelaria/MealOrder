@@ -4,14 +4,15 @@ import { Item, ShoppingCartType } from '../interface';
 import { calculateRecurrence } from '../lib/dates';
 
 export const ShoppingCartContext = createContext<ShoppingCartType>({
-  shoppingCartId: '',
-  serviceDate: '',
-  customerName: '',
-  customerPhone: '',
+  shopping_cart_id: '',
+  service_date: '',
+  customer_name: '',
+  customer_phone: '',
   comments: '',
   status: 'pending',
   items: [],
   addItem: () => {},
+  updateItem: () => {},
   addItems: () => {},
   removeItem: () => {},
   clearItems: () => {},
@@ -25,10 +26,10 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [items, setItems] = useState<Item[]>([]);
-  const [shoppingCartId, setShoppingCartId] = useState('');
-  const [serviceDate, updateServiceDate] = useState('');
-  const [customerName, setCustomerName] = useState('');
-  const [customerPhone, setCustomerPhone] = useState('');
+  const [shopping_cart_id, setShoppingCartId] = useState('');
+  const [service_date, updateServiceDate] = useState('');
+  const [customer_name, setCustomerName] = useState('');
+  const [customer_phone, setCustomerPhone] = useState('');
   const [comments, setComments] = useState('');
   const [status, setStatus] = useState('shopping');
 
@@ -41,14 +42,14 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
   const removeItem = (index: number) => {
     setItems(items.filter((item, i) => i !== index));
   };
-
+  const updateItem = (item: Item, index: number) => {};
   const filterItems = (serviceDate: string) => {
     setItems(
       items.filter((item) => {
-        if (item.available_date && item.recurrence) {
+        if (item.Data.Available_Date && item.Data.Recurrence) {
           let tempDates = calculateRecurrence(
-            item.available_date,
-            item.recurrence
+            item.Data.Available_Date,
+            item.Data.Recurrence
           );
           return tempDates.has(serviceDate);
         }
@@ -66,14 +67,15 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const shoppingCart: ShoppingCartType = {
-    shoppingCartId,
-    serviceDate,
-    customerName,
-    customerPhone,
+    shopping_cart_id,
+    service_date,
+    customer_name,
+    customer_phone,
     comments,
     status,
     items,
     addItem,
+    updateItem,
     addItems,
     removeItem,
     clearItems,

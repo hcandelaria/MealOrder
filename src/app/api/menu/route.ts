@@ -1,4 +1,9 @@
-import { Client } from 'cassandra-driver';
+import {
+  DynamoDBClient,
+  ExecuteStatementCommand,
+} from '@aws-sdk/client-dynamodb';
+
+const client = new DynamoDBClient({ region: 'us-east-1' });
 
 /**
  * Get all menu items
@@ -6,24 +11,13 @@ import { Client } from 'cassandra-driver';
  * @return {[items]}
  */
 const GetAllMenuItems = async () => {
-  const client = new Client({
-    cloud: {
-      secureConnectBundle: './src/app/api/secure-connect-mealorder.zip',
-    },
-    credentials: {
-      username: `${process.env.CLIENT_ID}`,
-      password: `${process.env.CLIENT_SECRET}`,
-    },
+  const command = new ExecuteStatementCommand({
+    Statement: `SELECT * FROM MealOrders
+    WHERE PK='ORG#1' AND BEGINS_WITH(SK, 'PRODUCT#');`,
   });
 
-  await client.connect();
-
-  // Execute a query
-  const rs = await client.execute('SELECT * FROM mealorder.item');
-  // Close connection
-  await client.shutdown();
-  // Return results
-  return JSON.stringify(rs.rows);
+  const response = await client.send(command);
+  return JSON.stringify(response.Items);
 };
 
 export async function GET(request: Request) {

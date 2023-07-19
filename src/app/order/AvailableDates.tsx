@@ -1,4 +1,5 @@
 'use client';
+import { unmarshall } from '@aws-sdk/util-dynamodb';
 import { useEffect, useState } from 'react';
 import { useItem } from '../Context/ItemContext';
 import { getAllMenuItems } from '../lib/api';
@@ -14,26 +15,29 @@ export default function AvailableDates() {
 
   useEffect(() => {
     setLoading(true);
-    getAllMenuItems().then((data) => {
-      setData(data);
-      addItems(data);
-
+    getAllMenuItems().then((rawData) => {
+      if (!rawData) return;
       let tempDates: any = [];
 
-      data.map((item: any) => {
+      // unmarshall data
+      const data = rawData.map((i: any) => {
+        const item = unmarshall(i);
         tempDates = [
           ...tempDates,
           ...Array.from(
-            calculateRecurrence(item.available_date, item.recurrence)
+            calculateRecurrence(item.Data.Available_Date, item.Data.Recurrence)
           ),
         ];
+        return item;
       });
+      setData(data);
+      addItems(data);
 
       // get unique dates
       setDates(Array.from(new Set(tempDates)));
       setLoading(false);
     });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) return <LoadingModal message='Please wait...' />;
   if (!data) return <>Not available dates to order. Please try again later.</>;
@@ -41,15 +45,13 @@ export default function AvailableDates() {
   return (
     <>
       <div>
-        <h1 className='text-red-500 uppercase text-3xl'>
-          Start Your Order for:
-        </h1>
+        <h1 className='text-xl uppercase dark:text-red-500'>Select a date:</h1>
         <div className='grid grid-cols-4'>
           {dates.map((date: any, index) => {
             return (
               <button
                 key={index}
-                className='bg-black text-white font-bold rounded-full px-2 mx-2 my-1 col-span-2'
+                className='col-span-2 px-2 mx-2 my-1 font-bold text-black bg-white border-black rounded-full dark:bg-red-500 dark:text-black'
                 onClick={() => setServiceDate(date)}
               >
                 {date}

@@ -10,12 +10,13 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^4.3.10",
+    "@aws-sdk/util-dynamodb": "^3.365.0",
     "@heroicons/react": "^2.0.17",
     "@types/node": "18.14.6",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "aws-amplify": "^5.0.18",
-    "cassandra-driver": "^4.6.4",
+    "aws-sdk": "^2.1409.0",
     "eslint": "8.35.0",
     "eslint-config-next": "^13.2.4",
     "next": "^13.2.4",
@@ -25,6 +26,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@iconify/react": "^4.1.0",
     "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",

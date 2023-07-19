@@ -8,10 +8,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body>
+      <body className='bg-[url("/img/BBQBackground.jpg")] bg-cover bg-no-repeat bg-center bg-fixed'>
         <Providers>
           <NavBar />
-          {children}
+          <main className='bg-orange-500/[.4] bg-fixed min-h-screen dark:bg-black/[.70]'>
+            <section className='opacity-100'>
+              <br />
+              {children}
+            </section>
+          </main>
         </Providers>
       </body>
     </html>

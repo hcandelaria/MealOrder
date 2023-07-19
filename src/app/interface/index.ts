@@ -1,18 +1,25 @@
 export interface Item {
-  name: string;
-  description: string;
-  status: string;
-  price: number;
-  thumbnail_url: string;
-  size: string;
-  spicy_level: string;
-  available_date?: string;
-  recurrence?: string;
+  PK: string;
+  SK: string;
+  Data: {
+    Name: string;
+    Description: string;
+    Status: string;
+    Price: number;
+    Thumbnail_Url: string;
+    Size: any;
+    Spicy_Level: any;
+    Current_Size?: any;
+    Current_Spicy_Level?: any;
+    Available_Date?: string;
+    Order_Quantity?: number;
+    Recurrence?: string;
+  };
 }
 
 export interface ItemType {
   items: Item[];
-  serviceDate: string;
+  service_date: string;
   addItem: (item: Item) => void;
   addItems: (item: [Item]) => void;
   removeItem: (index: number) => void;
@@ -21,14 +28,15 @@ export interface ItemType {
 }
 
 export interface ShoppingCartType {
-  shoppingCartId: string;
-  serviceDate: string;
-  customerName: string;
-  customerPhone: string;
+  shopping_cart_id: string;
+  service_date: string;
+  customer_name: string;
+  customer_phone: string;
   comments: string;
   status: string;
   items: Item[];
   addItem: (item: Item) => void;
+  updateItem: (item: Item, index: number) => void;
   addItems: (item: [Item]) => void;
   removeItem: (index: number) => void;
   clearItems: () => void;

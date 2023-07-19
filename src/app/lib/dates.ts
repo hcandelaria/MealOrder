@@ -47,19 +47,21 @@ export const calculateRecurrence = (
 
   // Calculate the recurring dates
   let currentDate = startDate;
-  let recurrenceRate = 0;
+  let recurrenceRate;
 
-  if (recurrence === 'daily') {
-    recurrenceRate = 1;
-  }
-  if (recurrence === 'weekly') {
-    recurrenceRate = 7;
-  }
-  if (recurrence === 'biweekly') {
-    recurrenceRate = 14;
-  }
-  if (recurrence === 'monthly') {
-    recurrenceRate = 28;
+  switch (recurrence) {
+    case 'daily':
+      recurrenceRate = 1;
+      break;
+    case 'weekly':
+      recurrenceRate = 7;
+      break;
+    case 'biweekly':
+      recurrenceRate = 14;
+      break;
+    // defaults to monthly
+    default:
+      recurrenceRate = 28;
   }
 
   while (!endDate || currentDate <= endDate) {

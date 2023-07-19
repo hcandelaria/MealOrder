@@ -15,6 +15,15 @@
       "auth": {
         "mealorderc4fef4ba": {},
         "userPoolGroups": {}
+      },
+      "function": {
+        "mealordera8873524": {
+          "deploymentBucketName": "amplify-mealorder-dev-212739-deployment",
+          "s3Key": "amplify-builds/mealordera8873524-35514138517458324672-build.zip"
+        }
+      },
+      "api": {
+        "api42492b23": {}
       }
     }
   }

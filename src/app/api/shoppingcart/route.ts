@@ -1,40 +1,28 @@
-import { Client } from 'cassandra-driver';
+import {
+  DynamoDBClient,
+  ExecuteStatementCommand,
+} from '@aws-sdk/client-dynamodb';
+
+const client = new DynamoDBClient({ region: 'us-east-1' });
 
 /**
- * Get all orders
+ * Get all menu items
  *
- * @return {[shopping_cart]}
+ * @return {[items]}
  */
-const GetAllOrders = async () => {
-  const client = new Client({
-    cloud: {
-      secureConnectBundle: './src/app/api/secure-connect-mealorder.zip',
-    },
-    credentials: {
-      username: `${process.env.CLIENT_ID}`,
-      password: `${process.env.CLIENT_SECRET}`,
-    },
+const GetAllOrdersByDate = async () => {
+  const command = new ExecuteStatementCommand({
+    Statement: `SELECT * FROM MealOrders
+    WHERE GSI1PK='ORG#1' AND BEGINS_WITH(GSI1SK, 'DATE#1#ORDER#');`,
   });
 
-  await client.connect();
-
-  // Execute a query
-  const rs = await client.execute('SELECT * FROM mealorder.shopping_cart');
-  // Close connection
-  await client.shutdown();
-  // Return results
-  return JSON.stringify(rs.rows);
+  const response = await client.send(command);
+  return JSON.stringify(response.Items);
 };
 
-/**
- *
- *
- * @export
- * @param {Request} request
- * @return {*}
- */
 export async function GET(request: Request) {
+  console.log('klk');
   // Run the async function
-  const rs: any = await GetAllOrders();
+  const rs: any = await GetAllOrdersByDate();
   return new Response(rs);
 }
