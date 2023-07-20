@@ -1,6 +1,11 @@
 [
   {
-    "Action": [],
-    "Resource": []
+    "Action": [
+      "dynamodb:PartiQLInsert",
+      "dynamodb:PartiQLUpdate",
+      "dynamodb:PartiQLDelete",
+      "dynamodb:PartiQLSelect"
+    ],
+    "Resource": ["arn:aws:dynamodb:us-east-1:259421441156:table/MealOrders"]
   }
 ]
