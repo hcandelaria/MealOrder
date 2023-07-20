@@ -30,15 +30,6 @@ export default function Home() {
     },
   });
 
-  useEffect(() => {
-    // getAllOrders().then((data: any) => {
-    //   console.log(data);
-    //   data.forEach((element) => {
-    //     console.log(unmarshall(element));
-    //   });
-    // });
-  });
-
   return (
     <>
       <div className='grid mx-2'>

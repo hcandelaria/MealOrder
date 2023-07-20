@@ -27,10 +27,6 @@ export default function ShoppingCart() {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<null | boolean>();
 
-  // useEffect(() => {
-  //   console.log(items);
-  // }, []);
-
   const toggleModal = () => {
     setModal(!modal);
   };

@@ -21,7 +21,6 @@ const GetAllOrdersByDate = async () => {
 };
 
 export async function GET(request: Request) {
-  console.log('klk');
   // Run the async function
   const rs: any = await GetAllOrdersByDate();
   return new Response(rs);

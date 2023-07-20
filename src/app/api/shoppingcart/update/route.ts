@@ -37,8 +37,6 @@ const UpdateOrder = async (payload: any, keys: any) => {
     ExpressionAttributeValues: attVal,
     ExpressionAttributeNames: attNames,
   };
-  console.log('here');
-  console.log(input);
   const command = new UpdateItemCommand(input);
 
   const response = await client.send(command);
