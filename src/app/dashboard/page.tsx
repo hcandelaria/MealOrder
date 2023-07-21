@@ -16,7 +16,6 @@ export default function Dashboard() {
     getAllOrders().then((data: ShoppingCartType[]) => {
       setData(data);
       setLoading(false);
-      console.log(data);
     });
   }, []);
 
@@ -25,29 +24,29 @@ export default function Dashboard() {
 
   return (
     <>
-      <h1 className='text-red-500 text-3xl'>Dashboard</h1>
+      <h1 className='text-3xl text-red-500'>Dashboard</h1>
       {data.map((order, index) => {
         return (
           <section
             key={index}
-            className='bg-neutral-200 shadow-lg rounded-lg hover:bg-slate-400 my-2'
+            className='my-2 rounded-lg shadow-lg bg-neutral-200 hover:bg-slate-400'
           >
-            <h1 className='text-red-500 text-xl'>{order.service_date}</h1>
-            <h1 className='text-red-500 text-xl'>
+            <h1 className='text-xl text-red-500'>{order.service_date}</h1>
+            <h1 className='text-xl text-red-500'>
               <span> {order.customer_name}</span>
               <span> {formatPhoneNumber(order.customer_phone)}</span>
               {order.status === 'approved' && (
-                <span className='bg-green-500 uppercase rounded-full text-white px-2'>
+                <span className='px-2 text-white uppercase bg-green-500 rounded-full'>
                   {order.status}
                 </span>
               )}
               {order.status === 'declined' && (
-                <span className='bg-red-500 uppercase rounded-full text-white px-2'>
+                <span className='px-2 text-white uppercase bg-red-500 rounded-full'>
                   {order.status}
                 </span>
               )}
               {order.status === 'pending' && (
-                <span className='bg-orange-500 uppercase rounded-full text-white px-2'>
+                <span className='px-2 text-white uppercase bg-orange-500 rounded-full'>
                   {order.status}
                 </span>
               )}
@@ -55,13 +54,13 @@ export default function Dashboard() {
             {order.items.map((item, index) => {
               return <CartItem key={index} item={item} index={index} />;
             })}
-            <div className='text-black font-bold'>
+            <div className='font-bold text-black'>
               Comments:
-              <span className='font-normal text-md mx-1'>{order.comments}</span>
+              <span className='mx-1 font-normal text-md'>{order.comments}</span>
             </div>
             <div>
               <button
-                className='bg-green-500 text-white font-bold rounded-full px-2 mx-2 my-1 col-span-2'
+                className='col-span-2 px-2 mx-2 my-1 font-bold text-white bg-green-500 rounded-full'
                 onClick={() => {
                   setUpdating(true);
                   const payload = {
@@ -81,7 +80,7 @@ export default function Dashboard() {
               </button>
 
               <button
-                className='bg-red-500 text-white font-bold rounded-full px-2 mx-2 my-1 col-span-2'
+                className='col-span-2 px-2 mx-2 my-1 font-bold text-white bg-red-500 rounded-full'
                 onClick={() => {
                   setUpdating(true);
                   const payload = {

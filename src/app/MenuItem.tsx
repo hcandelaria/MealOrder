@@ -35,7 +35,6 @@ export default function MenuItem({
     payload.Data.Current_Size = size;
     payload.Data.Current_Spicy_Level = spicy;
     payload.Data.Order_Quantity = quantity;
-    console.log(payload);
     addItem(payload);
   };
 

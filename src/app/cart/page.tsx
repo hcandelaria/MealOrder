@@ -1,4 +1,5 @@
 'use client';
+import { marshall } from '@aws-sdk/util-dynamodb';
 import { Icon } from '@iconify/react';
 import Link from 'next/link';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
@@ -47,7 +48,7 @@ export default function ShoppingCart() {
 
   const handleSubmitOrder = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
+    // setLoading(true);
     if (
       !service_date ||
       customerName === '' ||
@@ -61,17 +62,32 @@ export default function ShoppingCart() {
     if (error) {
       setError(null);
     }
+    const ID = uuidv4();
+    const STATUS = 'Pending';
 
-    const payload = {
-      shopping_cart_id: uuidv4(),
-      customer_name: customerName,
-      customer_phone: rawPhoneNumber,
-      items: items,
-      status: 'pending',
-      service_date: service_date,
-      comments: customerComments,
+    const ITEMS_PAYLOAD = items.map((item, index) => {
+      item.PK = `ORG#1#ORDER#${ID}#ORDERITEM#${index}`;
+      item.SK = `DATE#${service_date}#ORDER#${ID}#PRODUCT#${item.SK}`;
+      item.GSI1PK = `ORG#1`;
+      item.GSI1SK = `DATE#${service_date}#ORDER#${ID}#ITEM#${index}`;
+      return marshall(item);
+    });
+
+    const ORDER_PAYLOAD = {
+      PK: `ORG#1#ORDER#${ID}`,
+      SK: `DATE#${service_date}#STATUS#${STATUS}`,
+      GSI1PK: `ORG#1`,
+      GSI1SK: `DATE#${service_date}#STATUS#${STATUS}#ORDER#${ID}`,
+      Data: {
+        Customer_Name: customerName,
+        Customer_Phone: rawPhoneNumber,
+        Service_Date: service_date,
+        Customer_Comments: customerComments,
+      },
     };
-    SubmitOrder(payload).then((res: any) => {
+    const PAYLOAD = [marshall(ORDER_PAYLOAD), ...ITEMS_PAYLOAD];
+    console.log(PAYLOAD);
+    SubmitOrder(PAYLOAD).then((res: any) => {
       if (res) {
         setTone('successful');
         setMessage(

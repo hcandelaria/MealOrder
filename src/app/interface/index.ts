@@ -1,6 +1,8 @@
 export interface Item {
   PK: string;
   SK: string;
+  GSI1PK?: string;
+  GSI1SK?: string;
   Data: {
     Name: string;
     Description: string;

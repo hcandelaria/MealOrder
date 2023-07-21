@@ -1,4 +1,8 @@
-import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
+import {
+  BatchWriteItemCommand,
+  DynamoDBClient,
+  PutItemCommand,
+} from '@aws-sdk/client-dynamodb';
 
 const client = new DynamoDBClient({ region: 'us-east-1' });
 /**
@@ -8,13 +12,23 @@ const client = new DynamoDBClient({ region: 'us-east-1' });
  * @return {*}
  */
 const CreateOrder = async (payload: any) => {
+  console.log(payload);
   // Adds payload to MealOrders
-  const input = {
-    TableName: 'MealOrders',
-    Item: payload,
-  };
 
-  const command = new PutItemCommand(input);
+  const input = payload.map((orderItem: any) => {
+    const itemRequest = {
+      Item: orderItem,
+    };
+    return { PutRequest: itemRequest };
+  });
+
+  console.log(input);
+
+  const command = new BatchWriteItemCommand({
+    RequestItems: {
+      ['MealOrders']: input,
+    },
+  });
 
   const response = await client.send(command);
   return JSON.stringify(response);
