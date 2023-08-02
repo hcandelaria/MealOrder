@@ -63,28 +63,28 @@ export default function ShoppingCart() {
       setError(null);
     }
     const ID = uuidv4();
-    const STATUS = 'Pending';
 
     const ITEMS_PAYLOAD = items.map((item, index) => {
-      item.PK = `ORG#1#ORDER#${ID}#ORDERITEM#${index}`;
-      item.SK = `DATE#${service_date}#ORDER#${ID}#PRODUCT#${item.SK}`;
-      item.GSI1PK = `ORG#1`;
-      item.GSI1SK = `DATE#${service_date}#ORDER#${ID}#ITEM#${index}`;
+      item.PK = `ORG#1#ORDER#${ID}`;
+      item.SK = `ITEM#${index}#ORDER#${ID}`;
       return marshall(item);
     });
+    // item.GSI1PK = `ORG#1`;
+    // item.GSI1SK = `DATE#${service_date}#ORDER#${ID}#ITEM#${index}`;
 
     const ORDER_PAYLOAD = {
       PK: `ORG#1#ORDER#${ID}`,
-      SK: `DATE#${service_date}#STATUS#${STATUS}`,
-      GSI1PK: `ORG#1`,
-      GSI1SK: `DATE#${service_date}#STATUS#${STATUS}#ORDER#${ID}`,
+      SK: `ORDER#${ID}`,
       Data: {
         Customer_Name: customerName,
         Customer_Phone: rawPhoneNumber,
         Service_Date: service_date,
         Customer_Comments: customerComments,
+        Status: 'Pending',
       },
     };
+    // GSI1PK: `ORG#1`,
+    // GSI1SK: `DATE#${service_date}#STATUS#${STATUS}#ORDER#${ID}`,
     const PAYLOAD = [marshall(ORDER_PAYLOAD), ...ITEMS_PAYLOAD];
     console.log(PAYLOAD);
     SubmitOrder(PAYLOAD).then((res: any) => {

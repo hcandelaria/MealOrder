@@ -10,10 +10,10 @@ const client = new DynamoDBClient({ region: 'us-east-1' });
  *
  * @return {[items]}
  */
-const GetAllOrdersByDate = async () => {
+const GetAllOrders = async () => {
   const command = new ExecuteStatementCommand({
     Statement: `SELECT * FROM MealOrders
-    WHERE GSI1PK='ORG#1' AND BEGINS_WITH(GSI1SK, 'DATE#1#ORDER#');`,
+    WHERE BEGINS_WITH(PK, 'ORG#1#ORDER#');`,
   });
 
   const response = await client.send(command);
@@ -22,6 +22,6 @@ const GetAllOrdersByDate = async () => {
 
 export async function GET(request: Request) {
   // Run the async function
-  const rs: any = await GetAllOrdersByDate();
+  const rs: any = await GetAllOrders();
   return new Response(rs);
 }
