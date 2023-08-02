@@ -48,7 +48,7 @@ export default function ShoppingCart() {
 
   const handleSubmitOrder = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // setLoading(true);
+    setLoading(true);
     if (
       !service_date ||
       customerName === '' ||
@@ -86,7 +86,6 @@ export default function ShoppingCart() {
     // GSI1PK: `ORG#1`,
     // GSI1SK: `DATE#${service_date}#STATUS#${STATUS}#ORDER#${ID}`,
     const PAYLOAD = [marshall(ORDER_PAYLOAD), ...ITEMS_PAYLOAD];
-    console.log(PAYLOAD);
     SubmitOrder(PAYLOAD).then((res: any) => {
       if (res) {
         setTone('successful');
