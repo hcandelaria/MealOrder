@@ -4,7 +4,7 @@
  * @return {*}
  */
 export const getAllMenuItems = async () => {
-  const res = await fetch('/api/menu/', { next: { revalidate: 10 } });
+  const res = await fetch('/api/menu/', { cache: 'no-store' });
   // Recommendation: handle errors
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -20,7 +20,7 @@ export const getAllMenuItems = async () => {
  * @return {*}
  */
 export const getActiveServiceDates = async () => {
-  const res = await fetch('/api/servicedate', { next: { revalidate: 10 } });
+  const res = await fetch('/api/servicedate', { cache: 'no-store' });
 
   if (!res.ok) {
     console.log(`Error ${res.status} fetching data`);
@@ -61,7 +61,7 @@ export const SubmitOrder = async (payload: any) => {
  * @return {*}
  */
 export const getAllOrders = async () => {
-  const res = await fetch('/api/shoppingcart', { next: { revalidate: 10 } });
+  const res = await fetch('/api/shoppingcart', { cache: 'no-store' });
   // Recommendation: handle errors
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
