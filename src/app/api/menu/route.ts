@@ -2,6 +2,7 @@ import {
   DynamoDBClient,
   ExecuteStatementCommand,
 } from '@aws-sdk/client-dynamodb';
+export const dynamic = 'force-dynamic';
 
 const client = new DynamoDBClient({ region: 'us-east-1' });
 
