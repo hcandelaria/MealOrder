@@ -1,9 +1,13 @@
 'use client';
+import awsExports from '@/aws-exports';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
+import { Amplify } from 'aws-amplify';
 import { useEffect, useState } from 'react';
 import { getAllMenuItems } from '../lib/api';
 import LoadingModal from '../LoadingModal';
 import MenuItem from '../MenuItem';
+
+Amplify.configure({ ...awsExports, ssr: true });
 
 export default function Menu() {
   const [data, setData] = useState([]);
