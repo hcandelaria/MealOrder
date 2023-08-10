@@ -2,11 +2,11 @@ import {
   DynamoDBClient,
   ExecuteStatementCommand,
 } from '@aws-sdk/client-dynamodb';
-import { Amplify } from 'aws-amplify';
-import awsExports from '../../../aws-exports';
-export const dynamic = 'force-dynamic';
+// import { Amplify } from 'aws-amplify';
+// import awsExports from '../../../aws-exports';
+// export const dynamic = 'force-dynamic';
 
-Amplify.configure({ ...awsExports, ssr: true });
+// Amplify.configure({ ...awsExports, ssr: true });
 
 const client = new DynamoDBClient({ region: 'us-east-1' });
 
@@ -26,7 +26,8 @@ const GetAllMenuItems = async () => {
     const response = await client.send(command);
     return JSON.stringify(response.Items);
   } catch (error) {
-    console.log(error);
+    console.log('Error:', error);
+    return JSON.stringify({});
   }
 };
 
