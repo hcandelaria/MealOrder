@@ -16,13 +16,18 @@ const client = new DynamoDBClient({ region: 'us-east-1' });
  * @return {[items]}
  */
 const GetAllMenuItems = async () => {
-  const command = new ExecuteStatementCommand({
-    Statement: `SELECT * FROM MealOrders
-    WHERE PK='ORG#1' AND BEGINS_WITH(SK, 'PRODUCT#');`,
-  });
+  console.log('got request');
+  try {
+    const command = new ExecuteStatementCommand({
+      Statement: `SELECT * FROM MealOrders
+      WHERE PK='ORG#1' AND BEGINS_WITH(SK, 'PRODUCT#');`,
+    });
 
-  const response = await client.send(command);
-  return JSON.stringify(response.Items);
+    const response = await client.send(command);
+    return JSON.stringify(response.Items);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export async function GET(request: Request) {
