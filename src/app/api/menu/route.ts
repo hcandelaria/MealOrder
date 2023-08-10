@@ -2,6 +2,12 @@ import {
   DynamoDBClient,
   ExecuteStatementCommand,
 } from '@aws-sdk/client-dynamodb';
+import { Amplify } from 'aws-amplify';
+import awsExports from '../../../aws-exports';
+
+export const dynamic = 'force-dynamic';
+
+Amplify.configure({ ...awsExports, ssr: true });
 
 const client = new DynamoDBClient({ region: 'us-east-1' });
 
@@ -11,6 +17,7 @@ const client = new DynamoDBClient({ region: 'us-east-1' });
  * @return {[items]}
  */
 const GetAllMenuItems = async () => {
+  console.log(awsExports);
   console.log('got request');
   try {
     const command = new ExecuteStatementCommand({
