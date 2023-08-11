@@ -3,6 +3,7 @@ import {
   ExecuteStatementCommand,
 } from '@aws-sdk/client-dynamodb';
 import { Amplify } from 'aws-amplify';
+import { NextResponse } from 'next/server';
 import awsExports from '../../../aws-exports';
 
 export const dynamic = 'force-dynamic';
@@ -17,24 +18,19 @@ const client = new DynamoDBClient({ region: 'us-east-1' });
  * @return {[items]}
  */
 const GetAllMenuItems = async () => {
-  console.log(awsExports);
-  console.log('got request');
-  try {
-    const command = new ExecuteStatementCommand({
-      Statement: `SELECT * FROM MealOrders
-      WHERE PK='ORG#1' AND BEGINS_WITH(SK, 'PRODUCT#');`,
-    });
+  console.log(Date.now());
+  const command = new ExecuteStatementCommand({
+    Statement: `SELECT * FROM MealOrders
+    WHERE PK='ORG#1' AND BEGINS_WITH(SK, 'PRODUCT#');`,
+  });
 
-    const response = await client.send(command);
-    return JSON.stringify(response.Items);
-  } catch (error) {
-    console.log('Error:', error);
-    return JSON.stringify({});
-  }
+  const response = await client.send(command);
+
+  return JSON.stringify(response.Items);
 };
 
 export async function GET(request: Request) {
   // Run the async function
   const rs: any = await GetAllMenuItems();
-  return new Response(rs);
+  return NextResponse.json(rs);
 }
