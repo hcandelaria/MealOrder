@@ -19,6 +19,7 @@ export default function Dashboard() {
       if (!rawData) return;
       let order: Record<string, any> = { items: [] };
       const data: any = [];
+      console.log(rawData);
 
       rawData.forEach((marshallElement) => {
         // unmarshall elements
