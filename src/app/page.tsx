@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useShoppingCart } from './Context/ShoppingCartContext';
 import { Item } from './interface';
-import { getAllMenuItems, getAllOrders } from './lib/api';
 
 const promos = [
   { title: 'BBQ Rib', price: 9.99, src: 'MenuItem5' },

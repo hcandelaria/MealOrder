@@ -1,6 +1,5 @@
 'use client';
 import awsExports from '@/aws-exports';
-import { unmarshall } from '@aws-sdk/util-dynamodb';
 import { Amplify } from 'aws-amplify';
 import { useEffect, useState } from 'react';
 import { getAllMenuItems } from '../lib/api';
@@ -15,11 +14,8 @@ export default function Menu() {
 
   useEffect(() => {
     setLoading(true);
-    getAllMenuItems().then((rawData: any) => {
-      if (!rawData) return;
-      const data = rawData.map((i: any) => {
-        return unmarshall(i);
-      });
+    getAllMenuItems().then((data: any) => {
+      if (!data) return;
       setData(data);
       setLoading(false);
     });

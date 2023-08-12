@@ -1,5 +1,4 @@
 'use client';
-import { unmarshall } from '@aws-sdk/util-dynamodb';
 import { useEffect, useState } from 'react';
 import { useItem } from '../Context/ItemContext';
 import { getAllMenuItems } from '../lib/api';
@@ -19,9 +18,8 @@ export default function AvailableDates() {
       if (!rawData) return;
       let tempDates: any = [];
 
-      // unmarshall data
-      const data = rawData.map((i: any) => {
-        const item = unmarshall(i);
+      // Calculate services dates
+      const data = rawData.map((item: any) => {
         tempDates = [
           ...tempDates,
           ...Array.from(

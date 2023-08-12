@@ -15,27 +15,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     setLoading(true);
-    getAllOrders().then((rawData: any[]) => {
-      if (!rawData) return;
-      let order: Record<string, any> = { items: [] };
-      const data: any = [];
-
-      rawData.forEach((marshallElement) => {
-        // unmarshall elements
-        const element = unmarshall(marshallElement);
-
-        // add items to order
-        if (element.SK.startsWith('ITEM#')) {
-          order.items.push(element);
-        }
-        // Add order details
-        if (element.SK.startsWith('ORDER#')) {
-          order = { ...order, ...element };
-          data.push(order);
-          order = { items: [] };
-        }
-      });
-
+    getAllOrders().then((data: any[]) => {
+      if (!data) return;
       setData(data);
       setLoading(false);
     });

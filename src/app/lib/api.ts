@@ -1,3 +1,4 @@
+import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import { Amplify } from 'aws-amplify';
 import awsExports from '../../aws-exports';
 
@@ -15,6 +16,11 @@ export const getAllMenuItems = async () => {
     console.log(`Error ${res.status} fetching data`);
     return null;
   }
+  const rawData = await res.json();
+
+  const data = rawData.map((marshallElement: any) => {
+    return unmarshall(marshallElement);
+  });
   return res.json();
 };
 
@@ -30,8 +36,13 @@ export const getActiveServiceDates = async () => {
     console.log(`Error ${res.status} fetching data`);
     return null;
   }
+  const rawData = await res.json();
 
-  return res.json();
+  const data = rawData.map((marshallElement: any) => {
+    return unmarshall(marshallElement);
+  });
+
+  return data;
 };
 
 /**
@@ -72,8 +83,26 @@ export const getAllOrders = async () => {
     console.log(`Error ${res.status} fetching data`);
     return null;
   }
+  const rawData = await res.json();
+  let order: Record<string, any> = { items: [] };
+  const data: any = [];
 
-  return res.json();
+  rawData.forEach((marshallElement: any) => {
+    // unmarshall elements
+    const element = unmarshall(marshallElement);
+    // add items to order
+    if (element.SK.startsWith('ITEM#')) {
+      order.items.push(element);
+    }
+    // Add order details
+    if (element.SK.startsWith('ORDER#')) {
+      order = { ...order, ...element };
+      data.push(order);
+      order = { items: [] };
+    }
+  });
+
+  return data;
 };
 
 export const UpdateOrderStatus = async (payload: any) => {
