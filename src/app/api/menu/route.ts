@@ -5,7 +5,6 @@ import {
 import { Amplify } from 'aws-amplify';
 import { NextResponse } from 'next/server';
 import awsExports from '../../../aws-exports';
-
 export const dynamic = 'force-dynamic';
 
 Amplify.configure({ ...awsExports, ssr: true });
