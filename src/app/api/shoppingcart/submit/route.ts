@@ -1,10 +1,22 @@
 import {
   BatchWriteItemCommand,
   DynamoDBClient,
-  PutItemCommand,
 } from '@aws-sdk/client-dynamodb';
+import { Amplify } from 'aws-amplify';
+import { Credentials } from 'aws-sdk';
+import awsExports from '../../../../aws-exports';
 
-const client = new DynamoDBClient({ region: 'us-east-1' });
+export const dynamic = 'force-dynamic';
+
+Amplify.configure({ ...awsExports, ssr: true });
+
+const credentials = new Credentials({
+  accessKeyId: `${process.env.DYNAMODB_CLIENT_ID}`,
+  secretAccessKey: `${process.env.DYNAMODB_SECRET}`,
+});
+
+const client = new DynamoDBClient({ region: 'us-east-1', credentials });
+
 /**
  *
  *
@@ -12,7 +24,6 @@ const client = new DynamoDBClient({ region: 'us-east-1' });
  * @return {*}
  */
 const CreateOrder = async (payload: any) => {
-  console.log(payload);
   // Adds payload to MealOrders
 
   const input = payload.map((orderItem: any) => {
@@ -21,8 +32,6 @@ const CreateOrder = async (payload: any) => {
     };
     return { PutRequest: itemRequest };
   });
-
-  console.log(input);
 
   const command = new BatchWriteItemCommand({
     RequestItems: {

@@ -3,8 +3,21 @@ import {
   UpdateItemCommand,
   UpdateItemCommandInput,
 } from '@aws-sdk/client-dynamodb';
+import { Amplify } from 'aws-amplify';
+import { Credentials } from 'aws-sdk';
+import { NextResponse } from 'next/server';
+import awsExports from '../../../../aws-exports';
 
-const client = new DynamoDBClient({ region: 'us-east-1' });
+export const dynamic = 'force-dynamic';
+
+Amplify.configure({ ...awsExports, ssr: true });
+
+const credentials = new Credentials({
+  accessKeyId: `${process.env.DYNAMODB_CLIENT_ID}`,
+  secretAccessKey: `${process.env.DYNAMODB_SECRET}`,
+});
+
+const client = new DynamoDBClient({ region: 'us-east-1', credentials });
 
 /**
  * UpdateOrder function updates an item in the MealOrders table.
@@ -75,5 +88,5 @@ export async function PUT(request: Request) {
 
   // Run the async function
   const rs: any = await UpdateOrder(payload, keys);
-  return new Response(rs);
+  return NextResponse.json(rs);
 }
