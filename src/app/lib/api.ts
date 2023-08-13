@@ -21,7 +21,7 @@ export const getAllMenuItems = async () => {
   const data = rawData.map((marshallElement: any) => {
     return unmarshall(marshallElement);
   });
-  return res.json();
+  return data;
 };
 
 /**
